@@ -1,11 +1,5 @@
-const {
-  GraphQLSchema,
-  GraphQLObjectType,
-  GraphQLString,
-  GraphQLNonNull,
-  GraphQLList,
-} = require("graphql");
-const { signup, login } = require("../controllers/authController");
+const { GraphQLSchema, GraphQLObjectType, GraphQLList } = require("graphql");
+
 const { getUsers } = require("../controllers/userController");
 const {
   signup_mutation,

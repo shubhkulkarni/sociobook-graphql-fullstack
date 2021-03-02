@@ -5,6 +5,7 @@ const schema = require("./src/schema/schema");
 //configuration
 const dotenv = require("dotenv");
 const { errorMiddleware } = require("./src/middlewares/errorMiddleware");
+const { checkAuthentication } = require("./src/middlewares/authMiddleware");
 
 const dev_env = process.env.NODE_ENV.trim() === "development";
 dev_env
@@ -16,7 +17,7 @@ const app = express();
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-
+app.use(checkAuthentication);
 app.use(
   "/graphql",
   graphqlHTTP({
