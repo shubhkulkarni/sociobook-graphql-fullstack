@@ -5,6 +5,7 @@ const {
   signup_mutation,
   login_mutation,
 } = require("./mutations/authMutations");
+const { create_post } = require("./mutations/postMutations");
 const UserType = require("./types/user");
 
 const RootQuery = new GraphQLObjectType({
@@ -22,6 +23,7 @@ const Mutation = new GraphQLObjectType({
   fields: {
     signup: signup_mutation,
     login: login_mutation,
+    createPost: create_post,
   },
 });
 

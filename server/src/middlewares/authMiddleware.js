@@ -1,9 +1,10 @@
 const jwt = require("jsonwebtoken");
 const User = require("../models/user");
-const { catchAsync } = require("../utils/catchAsync");
+const { catchAsyncMid } = require("../utils/catchAsync");
 
-exports.checkAuthentication = catchAsync(async (req, res, next) => {
+exports.checkAuthentication = catchAsyncMid(async (req, res, next) => {
   const { authorization } = req.headers;
+
   if (!authorization || !authorization.startsWith("Bearer")) {
     req.auth = false;
     return next();
