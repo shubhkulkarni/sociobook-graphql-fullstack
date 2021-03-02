@@ -44,6 +44,10 @@ userSchema.pre("save", async function (next) {
   this.confirmPassword = undefined;
   next();
 });
+
+userSchema.methods.matchPasswords = async function (reqPW, dbPW) {
+  return await bcrypt.compare(reqPW, dbPW);
+};
 const User = model("User", userSchema);
 
 module.exports = User;
