@@ -5,16 +5,14 @@ const {
   signup_mutation,
   login_mutation,
 } = require("./mutations/authMutations");
-const { create_post } = require("./mutations/postMutations");
+const { create_post, like_post, delete_post } = require("./mutations/postMutations");
+const { get_all_posts } = require("./queries/postQueries");
 const UserType = require("./types/user");
 
 const RootQuery = new GraphQLObjectType({
   name: "RootQueryType",
   fields: {
-    users: {
-      type: new GraphQLList(UserType),
-      resolve: getUsers,
-    },
+    posts: get_all_posts,
   },
 });
 
@@ -24,6 +22,8 @@ const Mutation = new GraphQLObjectType({
     signup: signup_mutation,
     login: login_mutation,
     createPost: create_post,
+    likePost: like_post,
+    deletePost: delete_post
   },
 });
 

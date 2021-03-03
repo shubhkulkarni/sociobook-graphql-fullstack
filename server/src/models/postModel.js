@@ -14,6 +14,12 @@ const postSchema = new Schema(
       ref: "User",
       required: true,
     },
+    likedBy: [
+      {
+        type: Schema.ObjectId,
+        ref: "User",
+      },
+    ],
   },
   {
     timestamps: true,

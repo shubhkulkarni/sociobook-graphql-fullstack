@@ -1,5 +1,9 @@
 const { GraphQLNonNull, GraphQLString } = require("graphql");
-const { createPost } = require("../../controllers/postControllers");
+const {
+  createPost,
+  likeUnLikePost,
+  deletePost,
+} = require("../../controllers/postControllers");
 const PostType = require("../types/postType");
 
 exports.create_post = {
@@ -10,3 +14,20 @@ exports.create_post = {
   },
   resolve: createPost,
 };
+
+exports.like_post = {
+  type: PostType,
+  args: {
+    postId: { type: GraphQLString },
+  },
+  resolve: likeUnLikePost,
+};
+
+exports.delete_post = {
+  type : PostType,
+  args : {
+    postId : {type:GraphQLString}
+    
+  },
+  resolve : deletePost
+}
