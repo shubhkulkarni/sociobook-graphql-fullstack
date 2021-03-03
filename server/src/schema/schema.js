@@ -15,7 +15,10 @@ const {
   like_post,
   delete_post,
 } = require("./mutations/postMutations");
-const { update_user_profile } = require("./mutations/userMutation");
+const {
+  update_user_profile,
+  follow_unfollow,
+} = require("./mutations/userMutation");
 const { get_all_posts } = require("./queries/postQueries");
 const { get_all_users, get_user } = require("./queries/userQueries");
 
@@ -41,6 +44,7 @@ const Mutation = new GraphQLObjectType({
     deleteComment: delete_comment,
     replyComment: reply_comment,
     updateUserProfile: update_user_profile,
+    followUnfollow: follow_unfollow,
   },
 });
 

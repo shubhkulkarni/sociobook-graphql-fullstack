@@ -1,5 +1,5 @@
 const { GraphQLList, GraphQLString } = require("graphql");
-const { updateUserProfile } = require("../../controllers/userController");
+const { updateUserProfile, followUnfollow } = require("../../controllers/userController");
 const UserType = require("../types/user");
 
 exports.update_user_profile = {
@@ -17,3 +17,11 @@ exports.update_user_profile = {
   },
   resolve: updateUserProfile,
 };
+
+exports.follow_unfollow = {
+    type: UserType,
+    args: {
+        personId: { type: GraphQLString },
+
+    },resolve:followUnfollow
+}
