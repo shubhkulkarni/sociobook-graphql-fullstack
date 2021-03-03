@@ -1,18 +1,16 @@
 const { GraphQLObjectType, GraphQLString, GraphQLList } = require("graphql");
-const CommentType = require("./commentType");
 const UserType = require("./user");
 
-const PostType = new GraphQLObjectType({
-  name: "PostType",
+const CommentType = new GraphQLObjectType({
+  name: "CommentType",
   fields: () => ({
     _id: { type: GraphQLString },
     createdBy: { type: GraphQLString },
-    image: { type: GraphQLString },
+    postId: { type: GraphQLString },
     text: { type: GraphQLString },
     likedBy: { type: new GraphQLList(UserType) },
     createdAt: { type: GraphQLString },
-    comments : {type: new GraphQLList(CommentType) }
   }),
 });
 
-module.exports = PostType;
+module.exports = CommentType;

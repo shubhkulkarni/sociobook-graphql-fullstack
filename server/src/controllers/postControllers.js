@@ -16,7 +16,7 @@ exports.createPost = catchAsync(async (parent, args, req) => {
 exports.getAllPosts = catchAsync(async (parent, args, req) => {
   checkAuthStatus(req);
 
-  return await Post.find({}).populate("likedBy");
+  return await Post.find({}).populate("likedBy comments");
 });
 
 exports.likeUnLikePost = catchAsync(async (parent, args, req) => {

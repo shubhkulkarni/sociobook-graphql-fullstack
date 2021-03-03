@@ -18,16 +18,15 @@ exports.create_post = {
 exports.like_post = {
   type: PostType,
   args: {
-    postId: { type: GraphQLString },
+    postId: { type: new GraphQLNonNull(GraphQLString) },
   },
   resolve: likeUnLikePost,
 };
 
 exports.delete_post = {
-  type : PostType,
-  args : {
-    postId : {type:GraphQLString}
-    
+  type: PostType,
+  args: {
+    postId: { type: new GraphQLNonNull(GraphQLString) },
   },
-  resolve : deletePost
-}
+  resolve: deletePost,
+};
