@@ -27,6 +27,10 @@ exports.followUnfollow = catchAsync(async (parent, args, req) => {
   checkAuthStatus(req);
   const { user } = req;
   const { personId } = args;
+  if (user._id == personId) {
+    throw new AppError("You cannot follow yourself, follow others :)");
+  }
+
   const person = await User.findById(personId);
   if (!person) {
     throw new AppError("User does not exist");

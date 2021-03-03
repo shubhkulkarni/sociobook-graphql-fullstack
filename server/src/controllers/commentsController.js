@@ -1,5 +1,6 @@
 const Comment = require("../models/commentModel");
 const Post = require("../models/postModel");
+const AppError = require("../utils/AppError");
 const { catchAsync } = require("../utils/catchAsync");
 const { checkAuthStatus } = require("../utils/checkAuthStatus");
 
@@ -48,7 +49,7 @@ exports.deleteComment = catchAsync(async (parent, args, req) => {
   if (!comment) {
     throw new AppError("Comment does not exist");
   }
-  if (comment.createdBy !== user._id) {
+  if (comment.createdBy.toString() !== user._id.toString()) {
     throw new AppError(
       "Access denied . you cannot delete comment created by others ."
     );
@@ -64,7 +65,7 @@ exports.replyComment = catchAsync(async (parent, args, req) => {
   checkAuthStatus(req);
   const { user } = req;
   const { commentId, text } = args;
-  const comment = await Post.findById(commentId);
+  const comment = await Comment.findById(commentId);
   if (!comment) {
     throw new AppError("Comment does not exist");
   }
@@ -75,7 +76,7 @@ exports.replyComment = catchAsync(async (parent, args, req) => {
   });
   const { replies } = comment;
   replies.push(reply._id);
-  comment.replies = comments;
+  comment.replies = replies;
   await comment.save({ validateBeforeSave: false });
   return { ...comment._doc };
 });

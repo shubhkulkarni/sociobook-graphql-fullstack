@@ -21,7 +21,7 @@ exports.getAllPosts = catchAsync(async (parent, args, req) => {
 
 exports.likeUnLikePost = catchAsync(async (parent, args, req) => {
   checkAuthStatus(req);
-
+  const { user } = req;
   const { postId } = args;
   const post = await Post.findById(postId);
   if (!post) {
@@ -45,7 +45,9 @@ exports.deletePost = catchAsync(async (parent, args, req) => {
   if (!post) {
     throw new AppError("Post does not exist");
   }
-  if (post.createdBy !== user._id) {
+  let id = post.createdBy.toString();
+  let uid = user._id.toString();
+  if (id !== uid) {
     throw new AppError(
       "Access denied . you cannot delete post created by others ."
     );
@@ -55,7 +57,6 @@ exports.deletePost = catchAsync(async (parent, args, req) => {
 });
 
 exports.getUserPosts = catchAsync(async (parent, args, req) => {
-  
   const { _id: userId } = parent;
   return await Post.find({ createdBy: userId });
 });
