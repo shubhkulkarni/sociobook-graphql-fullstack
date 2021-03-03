@@ -1,5 +1,10 @@
 const { GraphQLNonNull, GraphQLString } = require("graphql");
-const { createComment, likeUnlikeComment, deleteComment } = require("../../controllers/commentsController");
+const {
+  createComment,
+  likeUnlikeComment,
+  deleteComment,
+  replyComment,
+} = require("../../controllers/commentsController");
 const CommentType = require("../types/commentType");
 
 exports.create_comment = {
@@ -20,9 +25,18 @@ exports.like_comment = {
 };
 
 exports.delete_comment = {
-    type: CommentType,
-    args: {
-      commentId: { type: new GraphQLNonNull(GraphQLString) },
-    },
-    resolve: deleteComment,
-}
+  type: CommentType,
+  args: {
+    commentId: { type: new GraphQLNonNull(GraphQLString) },
+  },
+  resolve: deleteComment,
+};
+
+exports.reply_comment = {
+  type: CommentType,
+  args: {
+    commentId: { type: new GraphQLNonNull(GraphQLString) },
+    text: { type: new GraphQLNonNull(GraphQLString) },
+  },
+  resolve: replyComment,
+};

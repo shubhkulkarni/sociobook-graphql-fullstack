@@ -59,3 +59,23 @@ exports.deleteComment = catchAsync(async (parent, args, req) => {
   );
   return await Comment.findByIdAndDelete(commentId);
 });
+
+exports.replyComment = catchAsync(async (parent, args, req) => {
+  checkAuthStatus(req);
+  const { user } = req;
+  const { commentId, text } = args;
+  const comment = await Post.findById(commentId);
+  if (!comment) {
+    throw new AppError("Comment does not exist");
+  }
+  const reply = await Comment.create({
+    text,
+    createdBy: user._id,
+    isReply: true,
+  });
+  const { replies } = comment;
+  replies.push(reply._id);
+  comment.replies = comments;
+  await comment.save({ validateBeforeSave: false });
+  return { ...comment._doc };
+});

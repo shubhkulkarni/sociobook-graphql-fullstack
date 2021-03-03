@@ -53,3 +53,9 @@ exports.deletePost = catchAsync(async (parent, args, req) => {
 
   return await Post.findByIdAndDelete(postId);
 });
+
+exports.getUserPosts = catchAsync(async (parent, args, req) => {
+  
+  const { _id: userId } = parent;
+  return await Post.find({ createdBy: userId });
+});

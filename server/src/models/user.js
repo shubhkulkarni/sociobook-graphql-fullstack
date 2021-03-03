@@ -32,6 +32,33 @@ const userSchema = new Schema(
         message: "passwords don't match",
       },
     },
+    profileImage: {
+      type: String,
+    },
+    birthDate: {
+      type: Date,
+    },
+    city: {
+      type: String,
+    },
+    profession: {
+      type: String,
+    },
+    hobbies: {
+      type: [String],
+    },
+    followers:[
+      {
+        type: Schema.ObjectId,
+        ref: "User",
+      },
+    ],
+    following:[
+      {
+        type: Schema.ObjectId,
+        ref: "User",
+      },
+    ],
   },
   {
     timestamps: true,

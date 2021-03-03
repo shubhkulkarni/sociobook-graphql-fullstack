@@ -33,3 +33,4 @@ exports.login = catchAsync(async (parent, args, req) => {
   obj.name = user.name;
   return { ...obj, accessToken: token };
 });
+

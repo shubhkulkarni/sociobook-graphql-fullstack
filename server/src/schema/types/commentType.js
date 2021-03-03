@@ -1,4 +1,9 @@
-const { GraphQLObjectType, GraphQLString, GraphQLList } = require("graphql");
+const {
+  GraphQLObjectType,
+  GraphQLString,
+  GraphQLList,
+  GraphQLBoolean,
+} = require("graphql");
 const UserType = require("./user");
 
 const CommentType = new GraphQLObjectType({
@@ -10,6 +15,8 @@ const CommentType = new GraphQLObjectType({
     text: { type: GraphQLString },
     likedBy: { type: new GraphQLList(UserType) },
     createdAt: { type: GraphQLString },
+    replies: { type: new GraphQLList(CommentType) },
+    isReply: { type: GraphQLBoolean },
   }),
 });
 

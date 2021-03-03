@@ -11,7 +11,7 @@ const PostType = new GraphQLObjectType({
     text: { type: GraphQLString },
     likedBy: { type: new GraphQLList(UserType) },
     createdAt: { type: GraphQLString },
-    comments : {type: new GraphQLList(CommentType) }
+    comments: { type: new GraphQLList(CommentType) },
   }),
 });
 

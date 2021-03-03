@@ -11,7 +11,6 @@ const commentSchema = new Schema(
     postId: {
       type: Schema.Types.ObjectId,
       ref: "Post",
-      required: true,
     },
     likedBy: [
       {
@@ -19,6 +18,16 @@ const commentSchema = new Schema(
         ref: "User",
       },
     ],
+    replies: [
+      {
+        type: Schema.ObjectId,
+        ref: "Comment",
+      },
+    ],
+    isReply: {
+      type: Boolean,
+      default: false,
+    },
   },
   {
     timestamps: true,
