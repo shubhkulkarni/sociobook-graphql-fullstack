@@ -1,0 +1,29 @@
+.footer {
+  background-color: #3f3d56;
+  color: #8a8d91;
+  width: 100%;
+  font-size: 1.2rem;
+}
+
+.ftrContent {
+  width: 100rem;
+  max-width: 100%;
+  margin: 0 auto;
+  padding: 3rem 0;
+}
+
+.ftrCtr {
+  width: 100%;
+  text-align: center;
+}
+
+.copyright {
+  color: white;
+  font-weight: bold;
+  margin-top: 2rem;
+}
+
+.about {
+  margin-top: 1rem;
+  margin-bottom: 2rem;
+}
