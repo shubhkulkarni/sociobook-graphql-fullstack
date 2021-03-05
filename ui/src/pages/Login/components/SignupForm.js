@@ -3,6 +3,7 @@ import Input from "../../../components/TextInput/TextInput";
 import "../Login.css";
 import logo from "../../../assets/SocioBook.svg";
 import Button from "../../../components/Buttons/Button";
+import { Link } from "react-router-dom";
 function SignupForm() {
   const [formData, setFormData] = useState({
     email: "",
@@ -82,7 +83,12 @@ function SignupForm() {
         Sign up{" "}
       </Button>
       <div className="signupctr">
-        Already have an account ?<span className="forgotpwd">Login</span>
+        Already have an account ?
+        <span className="forgotpwd">
+          <Link to="/home" className="forgotpwd">
+            Login
+          </Link>
+        </span>
       </div>
     </div>
   );

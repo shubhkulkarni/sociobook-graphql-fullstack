@@ -4,14 +4,16 @@ import SideImage from "./components/SideImage";
 import "./Login.css";
 import Page from "../../components/Page/Page";
 import Footer from "../../components/Footer/Footer";
+import SignupForm from "./components/SignupForm";
 
-function Login() {
+function Signup() {
   return (
-    <Page title="Login" className="loginPage">
+    <Page title="Signup" className="loginPage">
       <div className="loginCtr">
         <SideImage />
 
-        <LoginForm />
+        {/* <LoginForm /> */}
+        <SignupForm />
       </div>
       <div className="ftr">
         <Footer />
@@ -20,4 +22,4 @@ function Login() {
   );
 }
 
-export default Login;
+export default Signup;
