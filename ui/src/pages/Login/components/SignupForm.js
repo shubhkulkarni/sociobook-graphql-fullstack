@@ -1,9 +1,19 @@
 import React, { useState } from "react";
 import Input from "../../../components/TextInput/TextInput";
+import {
+  NotificationContainer,
+  NotificationManager,
+} from "react-notifications";
 import "../Login.css";
 import logo from "../../../assets/SocioBook.svg";
 import Button from "../../../components/Buttons/Button";
 import { Link } from "react-router-dom";
+import { useMutation } from "@apollo/client";
+import { signupMutation } from "../../../graphql/mutations";
+import { decodeJWT } from "./../../../utils/decodeJWT";
+import { setAuth } from "./../../../redux/actions/userActions";
+import { useDispatch } from "react-redux";
+import { useHistory } from "react-router-dom";
 function SignupForm() {
   const [formData, setFormData] = useState({
     email: "",
@@ -12,6 +22,9 @@ function SignupForm() {
     confirmPassword: "",
   });
   const [err, setErr] = useState([]);
+  const [signupHandler, { loading }] = useMutation(signupMutation);
+  const history = useHistory();
+  const dispatch = useDispatch();
   const handleChange = (e) => {
     if (!e.target.value) {
       setErr([...err, e.target.name]);
@@ -22,8 +35,8 @@ function SignupForm() {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const signIn = () => {
-    const { email, password } = formData;
+  const signUp = async () => {
+    const { email, password, name, confirmPassword } = formData;
     const dataList = Object.entries(formData);
     const errList = dataList
       .map((item) => {
@@ -35,7 +48,24 @@ function SignupForm() {
       .filter(Boolean);
 
     setErr([...errList]);
-    console.log({ ...formData, email: formData.email.trim().toLowerCase() });
+    if (!errList.length) {
+      try {
+        console.log({
+          ...formData,
+          email: formData.email.trim().toLowerCase(),
+        });
+        const resp = await signupHandler({
+          variables: { email, password, confirmPassword, name },
+        });
+        NotificationManager.success("Signup successfull!");
+        localStorage.setItem("authToken", resp.data.signup.accessToken);
+        const userId = decodeJWT(resp.data.signup.accessToken).id;
+        dispatch(setAuth({ authentication: true, userId }));
+        history.push("/home");
+      } catch (e) {
+        NotificationManager.error(e.message);
+      }
+    }
   };
 
   return (
@@ -78,18 +108,18 @@ function SignupForm() {
         error={err.includes("confirmPassword")}
       />
 
-      <Button type="primary" onClick={signIn}>
-        {" "}
-        Sign up{" "}
+      <Button type="primary" onClick={signUp}>
+        {loading ? "Signing up..." : "Sign up"}
       </Button>
       <div className="signupctr">
         Already have an account ?
         <span className="forgotpwd">
-          <Link to="/home" className="forgotpwd">
+          <Link to="/login" className="forgotpwd">
             Login
           </Link>
         </span>
       </div>
+      <NotificationContainer />
     </div>
   );
 }

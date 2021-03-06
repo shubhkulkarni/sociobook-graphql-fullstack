@@ -14,7 +14,7 @@ exports.signup = catchAsync(async (parent, args, req) => {
   obj.email = user.email;
   obj.name = user.name;
 
-  return { ...obj, accessToken: token };
+  return { ...obj, accessToken: token, _id: user._id };
 });
 
 exports.login = catchAsync(async (parent, args, req) => {
@@ -33,4 +33,3 @@ exports.login = catchAsync(async (parent, args, req) => {
   obj.name = user.name;
   return { ...obj, accessToken: token };
 });
-

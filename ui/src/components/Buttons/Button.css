@@ -1,5 +1,5 @@
 .primary {
-  width: 100%;
+  /* width: 100%; */
   /* box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px; */
   background-color: #0094ff;
   color: white;
@@ -26,4 +26,13 @@
 .primary:focus {
   /* border: 0;
   outline: 0; */
+}
+
+.primary:disabled {
+  opacity: 0.5;
+}
+.primary:disabled:hover {
+  opacity: 0.5;
+  background-color: #0094ff;
+  color: white;
 }

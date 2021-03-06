@@ -1,0 +1,1 @@
+export const setAuth = (payload) => ({type:'SET_AUTH',payload})

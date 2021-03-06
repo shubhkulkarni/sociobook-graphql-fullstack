@@ -7,7 +7,7 @@ import Footer from "../../components/Footer/Footer";
 
 function Login() {
   return (
-    <Page title="Login" className="loginPage">
+    <Page title="Signin" className="loginPage">
       <div className="loginCtr">
         <SideImage />
 

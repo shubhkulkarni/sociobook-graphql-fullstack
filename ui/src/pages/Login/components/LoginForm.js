@@ -3,10 +3,22 @@ import Input from "../../../components/TextInput/TextInput";
 import "../Login.css";
 import logo from "../../../assets/SocioBook.svg";
 import Button from "../../../components/Buttons/Button";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
+import { useMutation } from "@apollo/client";
+import { loginMutation } from "../../../graphql/mutations";
+import {
+  NotificationContainer,
+  NotificationManager,
+} from "react-notifications";
+import { useDispatch } from "react-redux";
+import { setAuth } from "./../../../redux/actions/userActions";
+import { decodeJWT } from "./../../../utils/decodeJWT";
 function LoginForm() {
   const [formData, setFormData] = useState({ email: "", password: "" });
   const [err, setErr] = useState([]);
+  const [loginHandler, { loading, error }] = useMutation(loginMutation);
+  const history = useHistory();
+  const dispatch = useDispatch();
   const handleChange = (e) => {
     if (!e.target.value) {
       setErr([...err, e.target.name]);
@@ -17,7 +29,7 @@ function LoginForm() {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const signIn = () => {
+  const signIn = async () => {
     const { email, password } = formData;
     const dataList = Object.entries(formData);
     const errList = dataList
@@ -30,7 +42,20 @@ function LoginForm() {
       .filter(Boolean);
 
     setErr([...errList]);
-    console.log({ ...formData, email: formData.email.trim().toLowerCase() });
+
+    try {
+      if (!errList.length) {
+        const resp = await loginHandler({ variables: { email, password } });
+
+        NotificationManager.success("Login successfull!");
+        localStorage.setItem("authToken", resp.data.login.accessToken);
+        const userId = decodeJWT(resp.data.login.accessToken).id;
+        dispatch(setAuth({ authentication: true, userId }));
+        history.push("/home");
+      }
+    } catch (e) {
+      NotificationManager.error(e.message);
+    }
   };
 
   return (
@@ -58,8 +83,7 @@ function LoginForm() {
       />
       <div className="forgotpwd">Forgot password ?</div>
       <Button type="primary" onClick={signIn}>
-        {" "}
-        Sign in{" "}
+        {loading ? "Siging in ..." : "Sign in"}
       </Button>
       <div className="signupctr">
         Don't have an account ?
@@ -69,6 +93,7 @@ function LoginForm() {
           </Link>
         </span>
       </div>
+      <NotificationContainer />
     </div>
   );
 }

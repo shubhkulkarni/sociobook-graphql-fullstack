@@ -1,7 +1,7 @@
 const express = require("express");
 const { graphqlHTTP } = require("express-graphql");
 const schema = require("./src/schema/schema");
-
+const cors = require("cors");
 //configuration
 const dotenv = require("dotenv");
 const { errorMiddleware } = require("./src/middlewares/errorMiddleware");
@@ -14,7 +14,7 @@ dev_env
 
 require("./database");
 const app = express();
-
+app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(checkAuthentication);

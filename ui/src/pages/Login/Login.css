@@ -17,6 +17,8 @@
   display: flex;
   justify-content: space-evenly;
   flex-wrap: wrap;
+  align-items: center;
+  min-height: 80vh;
 }
 .forgotpwd {
   color: #0094ff;

@@ -13,4 +13,9 @@
 
 .error {
   border: 1px solid tomato;
+  box-shadow: unset;
+}
+
+textarea {
+  resize: none;
 }

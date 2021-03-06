@@ -13,5 +13,5 @@ export const checkAuthStatus = () => {
   if (Date.now() >= decodedToken.exp * 1000) {
     return false;
   }
-  return { status: "authenticated", userId: decodedToken.id };
+  return { status: "authenticated", success: true, userId: decodedToken.id };
 };
