@@ -6,7 +6,7 @@ const PostType = new GraphQLObjectType({
   name: "PostType",
   fields: () => ({
     _id: { type: GraphQLString },
-    createdBy: { type: GraphQLString },
+    createdBy: { type: UserType },
     image: { type: GraphQLString },
     text: { type: GraphQLString },
     likedBy: { type: new GraphQLList(UserType) },

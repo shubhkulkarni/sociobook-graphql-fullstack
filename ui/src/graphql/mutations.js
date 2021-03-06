@@ -12,10 +12,30 @@ const loginMutation = gql`
 `;
 
 const signupMutation = gql`
-mutation signupHandler($name:String!,$email:String!,$confirmPassword:String!,$password:String!,){
-  signup(name:$name,email:$email,password:$password,confirmPassword:$confirmPassword){
-    accessToken
+  mutation signupHandler(
+    $name: String!
+    $email: String!
+    $confirmPassword: String!
+    $password: String!
+  ) {
+    signup(
+      name: $name
+      email: $email
+      password: $password
+      confirmPassword: $confirmPassword
+    ) {
+      accessToken
+    }
   }
-}`
+`;
 
-export { loginMutation,signupMutation };
+const createPostMutation = gql`
+  mutation createPostHandler($text: String!, $image: String) {
+    createPost(text: $text, image: $image) {
+      text
+      image
+    }
+  }
+`;
+
+export { loginMutation, signupMutation, createPostMutation };

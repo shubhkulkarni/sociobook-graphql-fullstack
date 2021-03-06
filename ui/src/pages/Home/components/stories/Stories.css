@@ -1,5 +1,5 @@
 .storiesCtr {
-  padding: 1rem;
+  padding: 0 2rem;
   max-height: 99vh;
   overflow: auto;
 }
@@ -26,8 +26,15 @@
   background-color: white;
   display: flex;
   flex-direction: column;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
 }
 
 .postbutton {
   margin: 1rem 0.5rem;
+}
+
+@media only screen and (max-width: 900px) {
+  .storiesCtr {
+    padding: 0;
+  }
 }

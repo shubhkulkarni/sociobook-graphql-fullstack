@@ -3,45 +3,69 @@ import Avatar from "../Avatar/Avatar";
 import "./Post.css";
 import logo from "../../assets/sideimage.svg";
 import { getTags } from "./../../utils/getTags";
+import moment from "moment";
 function Post({
   avatar,
   name = "Anonymous",
-  createdAt = "3h ago",
+  createdAt,
   content,
   imgSource = "https://source.unsplash.com/random",
+  loading = true,
+  isLiked,
+  totalComments,
+  totalLikes,
 }) {
   const text = `Lorem, ipsum dolor sit amet consectetur adipisicing elit. Rem aliquam
-  veritatis omnis eius mollitia, #tempore distinctio totam explicabo
-  adipisci temporibus debitis accusamus error dignissimos, sapiente quo
-  qui exercitationem #aliquid illum.`;
+  veritatis `;
+
   return (
     <div className="postCard">
       <div className="postHeader">
-        <Avatar src={avatar} size="large" />
+        <Avatar loading={loading} src={avatar} size="large" />
         <div className="creator">
-          <div className="createdBy">{name}</div>
-          <div className="createdAt">{createdAt}</div>
+          <div className={loading ? "loadingText" : "createdBy"}>{name}</div>
+
+          {loading ? null : (
+            <div className={"createdAt"}>{moment(+createdAt).calendar()}</div>
+          )}
         </div>
       </div>
+
       {imgSource ? (
         <div className="postImageCtr">
-          <img src={imgSource} alt="postImage" className="postImage" />
+          {loading ? (
+            <div className="loadingImage"></div>
+          ) : (
+            <img
+              src={imgSource}
+              alt="postImage"
+              className="postImage"
+              onError={(i) => (i.target.style.display = "none")}
+            />
+          )}
         </div>
       ) : null}
       <div className="postTextCtr">
-        <div className="postText">{text}</div>
+        <div className={loading ? "loadingText" : "postText"}>
+          {content || text}
+        </div>
       </div>
       <div className="postFooter">
-        <div className="likeCtr">
+        <div className={isLiked ? "likeCtr liked" : "likeCtr"}>
           <div>
-            <i class="fa fa-thumbs-o-up" aria-hidden="true" />
-            Like (1203)
+            {isLiked ? (
+              <i class="fa fa-thumbs-up" aria-hidden="true" />
+            ) : (
+              <i class="fa fa-thumbs-o-up" aria-hidden="true" />
+            )}
+            Like {loading ? null : totalLikes ? `(${totalLikes})` : null}
           </div>
         </div>
         <div className="commentCtr">
           <div>
             <i class="fa fa-commenting-o" aria-hidden="true" />
-            Comment (399)
+            Comment{" "}
+            {loading ? null : totalComments ? `(${totalComments})` : null}
           </div>
         </div>
       </div>
