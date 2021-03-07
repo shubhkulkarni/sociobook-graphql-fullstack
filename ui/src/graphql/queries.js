@@ -9,6 +9,7 @@ const fetchAllPosts = gql`
       createdBy {
         name
         _id
+        profileImage
       }
       likedBy {
         name
@@ -22,4 +23,36 @@ const fetchAllPosts = gql`
   }
 `;
 
-export { fetchAllPosts };
+const getUserInfo = gql`
+  query getUser($userId: String!) {
+    user(userId: $userId) {
+      name
+      email
+      profileImage
+      city
+      birthDate
+      profession
+      posts {
+        text
+        image
+        createdAt
+      }
+      followers {
+        name
+        _id
+      }
+      following {
+        name
+        _id
+      }
+    }
+  }
+`;
+
+const getAllUsers = gql`
+{
+  users{
+    name,email,profileImage,_id
+  }
+}`
+export { fetchAllPosts, getUserInfo,getAllUsers };

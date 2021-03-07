@@ -4,6 +4,11 @@ import "./Post.css";
 import logo from "../../assets/sideimage.svg";
 import { getTags } from "./../../utils/getTags";
 import moment from "moment";
+import { useMutation } from "@apollo/client";
+import { likePostMutation } from "../../graphql/mutations";
+import { fetchAllPosts } from "../../graphql/queries";
+import { NotificationManager } from "react-notifications";
+import NotificationContainer from "react-notifications/lib/NotificationContainer";
 function Post({
   avatar,
   name = "Anonymous",
@@ -14,10 +19,32 @@ function Post({
   isLiked,
   totalComments,
   totalLikes,
+  likedBy,
+  postId,
 }) {
   const text = `Lorem, ipsum dolor sit amet consectetur adipisicing elit. Rem aliquam
   veritatis `;
 
+  const [likePostHandler, { laoding }] = useMutation(likePostMutation);
+  const getTitle = (liked) => {
+    if (!liked.length) return "Be the first to like this post !";
+    if (liked.length > 5) {
+      liked.length = 5;
+      return `${liked.toString()} ,...more`;
+    }
+    return `${liked.toString()}`;
+  };
+
+  const likePost = async (postId) => {
+    try {
+      await likePostHandler({
+        variables: { postId },
+        refetchQueries: [{ query: fetchAllPosts }],
+      });
+    } catch (e) {
+      NotificationManager.error(e.message);
+    }
+  };
   return (
     <div className="postCard">
       <div className="postHeader">
@@ -51,7 +78,13 @@ function Post({
         </div>
       </div>
       <div className="postFooter">
-        <div className={isLiked ? "likeCtr liked" : "likeCtr"}>
+        <div
+          className={isLiked ? "likeCtr liked" : "likeCtr"}
+          title={getTitle(likedBy)}
+          onClick={() => {
+            likePost(postId);
+          }}
+        >
           <div>
             {isLiked ? (
               <i class="fa fa-thumbs-up" aria-hidden="true" />
@@ -69,6 +102,7 @@ function Post({
           </div>
         </div>
       </div>
+      <NotificationContainer />
     </div>
   );
 }

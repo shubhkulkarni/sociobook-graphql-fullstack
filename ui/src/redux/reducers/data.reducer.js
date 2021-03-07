@@ -1,36 +1,38 @@
 const initialState = {
+  allUsers: [],
+  searchInput: "",
   allPostsData: [
     {
-      text: "skeleton",
-      createdBy: { name: "skeleton" },
+      text: "Loading...",
+      createdBy: { name: "Loading..." },
       comments: [],
       likedBy: [],
       image: "random",
     },
     {
-      text: "skeleton",
-      createdBy: { name: "skeleton" },
+      text: "Loading...",
+      createdBy: { name: "Loading..." },
       comments: [],
       likedBy: [],
       image: "random",
     },
     {
-      text: "skeleton",
-      createdBy: { name: "skeleton" },
+      text: "Loading...",
+      createdBy: { name: "Loading..." },
       comments: [],
       likedBy: [],
       image: "random",
     },
     {
-      text: "skeleton",
-      createdBy: { name: "skeleton" },
+      text: "Loading...",
+      createdBy: { name: "Loading..." },
       comments: [],
       likedBy: [],
       image: "random",
     },
     {
-      text: "skeleton",
-      createdBy: { name: "skeleton" },
+      text: "Loading...",
+      createdBy: { name: "Loading..." },
       comments: [],
       likedBy: [],
       image: "random",
@@ -45,6 +47,11 @@ export const dataReducer = (state = initialState, { type, payload }) => {
         ...state,
         allPostsData: [...payload],
       };
+      break;
+    case "SET_ALL_USERS":
+      return { ...state, allUsers: [...payload] };
+    case "SET_SEARCH":
+      return { ...state, searchInput: payload };
     default:
       return state;
   }

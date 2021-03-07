@@ -12,11 +12,19 @@ import { fetchAllPosts } from "../../../../graphql/queries";
 
 function CreatePost() {
   const [formData, setFormData] = useState({ text: "", image: "" });
+  const [rows, setRows] = useState(3);
   const [createPostHander, { loading }] = useMutation(createPostMutation);
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
+  const onTextAreaClick = () => {
+    if (rows === 3) {
+      setRows(8);
+    } else {
+      setRows(3);
+    }
+  };
   const submitPost = async () => {
     const { text, image } = formData;
     if (text.trim()) {
@@ -39,11 +47,12 @@ function CreatePost() {
     <div className="createPost">
       <div className="form">
         <TextArea
-          placeholder="Whats on your mind"
+          placeholder="Whats on your mind ?"
           name="text"
-          rows="8"
+          rows={rows}
           onChange={handleChange}
           value={formData.text}
+          onClick={onTextAreaClick}
         />
         <Input
           placeholder="Post image url"

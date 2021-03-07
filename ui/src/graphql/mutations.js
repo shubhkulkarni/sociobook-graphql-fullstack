@@ -38,4 +38,12 @@ const createPostMutation = gql`
   }
 `;
 
-export { loginMutation, signupMutation, createPostMutation };
+const likePostMutation = gql`
+  mutation likePostHandler($postId: String!) {
+    likePost(postId: $postId) {
+      _id
+    }
+  }
+`;
+
+export { loginMutation, signupMutation, createPostMutation, likePostMutation };

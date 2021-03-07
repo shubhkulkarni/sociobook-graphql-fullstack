@@ -19,3 +19,16 @@
 textarea {
   resize: none;
 }
+
+.search {
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  padding: 1.5rem 3rem;
+  border: 1px solid transparent;
+  max-width: inherit;
+  margin: 1rem 0;
+  font-family: "Josefin Sans", sans-serif;
+  border-radius: 50rem;
+}
+.search:focus {
+  outline: 0;
+}

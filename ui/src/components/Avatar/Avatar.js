@@ -6,7 +6,14 @@ function Avatar({ src = avt, size = "default", loading }) {
     if (loading) {
       return <div className="loader"></div>;
     }
-    return <img src={src} alt="avatar" className={size} />;
+    return (
+      <img
+        src={src}
+        alt="avatar"
+        className={size}
+        onError={(i) => (i.target.src = avt)}
+      />
+    );
   }
 }
 

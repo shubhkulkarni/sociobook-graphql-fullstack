@@ -1,5 +1,78 @@
 .nav {
   height: 100%;
+  /* background-color: white; */
+  /* box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px; */
 
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.ftrName {
+  font-weight: 600;
+  margin-top: 1.5rem;
+  font-size: 1.1em;
+}
+.signOut {
+  color: #0094ff;
+  font-weight: 600;
+  padding: 1.5rem 0;
+  margin-top: 1.5rem;
+  cursor: pointer;
+}
+.signOut:hover {
+  background-color: white;
+  padding: 1.5rem 0;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+}
+.ftrEmail {
+  color: gray;
+  margin-top: 0.5rem;
+}
+.navFooter {
+  padding: 2rem;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+.isActiveNav {
+  color: white !important;
+  background-color: #0094ff;
+
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  padding: 1.5rem 2rem;
+  width: 81% !important;
+
+  font-weight: 600;
+}
+
+.navLink {
+  text-decoration: none;
+  padding: 1.5rem 2rem;
+
+  width: 100%;
+  color: black;
+
+  border: 2px solid transparent;
+}
+
+.navItem {
+  margin: 2rem 0;
+  width: 100%;
+  list-style-type: none;
+}
+
+.navbar {
+  display: flex;
+  flex-direction: column;
+
+  width: 100%;
+  /* margin-left: 1rem; */
+}
+
+.navIcon {
+  margin-right: 1rem;
+}
+
+div > a {
   width: 100%;
 }

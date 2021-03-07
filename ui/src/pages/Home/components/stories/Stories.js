@@ -9,6 +9,7 @@ import NotificationContainer from "react-notifications/lib/NotificationContainer
 import { setStoriesData } from "./../../../../redux/actions/dataActions";
 import { useDispatch, useSelector } from "react-redux";
 import capitalizeName from "./../../../../utils/CapitalizeName";
+import avt from "../../../../assets/img_avatar.png";
 function Stories() {
   const { loading, error, data } = useQuery(fetchAllPosts);
   if (error) {
@@ -27,8 +28,17 @@ function Stories() {
     <div className="storiesCtr">
       <CreatePost />
       {allStories.reverse().map((post) => {
-        const { text, createdBy, comments, likedBy, image, createdAt } = post;
+        const {
+          text,
+          createdBy,
+          comments,
+          likedBy,
+          image,
+          createdAt,
+          _id,
+        } = post;
         const likes = likedBy.map((i) => i._id);
+        const likeNames = likedBy.map((i) => i.name);
         return (
           <Post
             key={post._id}
@@ -40,6 +50,9 @@ function Stories() {
             imgSource={image}
             isLiked={likes.includes(userId)}
             createdAt={createdAt}
+            likedBy={likeNames}
+            avatar={createdBy.profileImage || avt}
+            postId={_id}
           />
         );
       })}

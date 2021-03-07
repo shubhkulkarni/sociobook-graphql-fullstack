@@ -25,7 +25,14 @@
   margin: 0.5rem;
   background-color: lightgray;
 }
-
+.xl {
+  height: 5.5rem;
+  width: 5.5rem;
+  border-radius: 300rem;
+  vertical-align: middle;
+  margin: 0.5rem;
+  background-color: lightgray;
+}
 .loader {
   height: 4rem;
   width: 4rem;
